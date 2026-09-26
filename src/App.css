@@ -1,0 +1,18 @@
+/* Force all step titles and descriptions to the same color */
+
+
+.ant-steps-item-content {
+  color: inherit !important;
+}
+
+.dark .ant-steps-item-content {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.ant-steps-item-content {
+  color: rgba(0, 0, 0, 0.65) !important;
+}
+
+.accordion__item {
+   color: rgba(255, 255, 255, 0.65) !important;
+}
