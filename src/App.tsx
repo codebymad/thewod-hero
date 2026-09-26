@@ -326,7 +326,7 @@ function App({ darkMode, toggleTheme }: AppProps) {
       </Button>
 
 
-      <Card className="w-[400px]">
+      <Card className="w-full">
         <CircleDollar aria-label="Dollar sign icon" className="text-primary size-6" role="img" />
         <Card.Header>
           <Card.Title>Become an Acme Creator!</Card.Title>
