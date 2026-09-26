@@ -246,7 +246,7 @@ function App({ darkMode, toggleTheme }: AppProps) {
 
                   <TextArea
                     aria-label="Quick project update"
-                    className="h-32 w-96"
+                    className="h-32 w-full"
                     placeholder="Share a quick project update..."
                   />
 
