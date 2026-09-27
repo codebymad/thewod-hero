@@ -4,7 +4,8 @@ import { Calendar } from "@heroui/react";
 import { useState } from "react";
 
 export function NewWeekPickerData() {
-  const [weeks, setWeeks] = useState(1);
+  const [weeks
+    /*, setWeeks*/] = useState(1);
 
   return (
     <div className="flex flex-col items-center gap-6">
