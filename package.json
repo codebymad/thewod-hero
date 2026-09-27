@@ -16,6 +16,7 @@
     "@gravity-ui/icons": "^2.22.0",
     "@heroui/react": "^3.2.6",
     "@heroui/styles": "^3.2.6",
+    "@supabase/supabase-js": "^2.117.2",
     "@tailwindcss/vite": "^4.3.3",
     "antd": "^6.6.5",
     "framer-motion": "^13.4.4",

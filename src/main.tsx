@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+import { ConfigProvider, theme } from 'antd'
+import enGB from 'antd/locale/en_GB'
 
 function Root() {
   const [darkMode, setDarkMode] = useState(() =>
@@ -18,7 +20,19 @@ function Root() {
 
   return (
     <React.StrictMode>
-      <App darkMode={darkMode} toggleTheme={toggleTheme} />
+      <ConfigProvider
+        locale={enGB}
+        theme={{
+          algorithm: darkMode
+            ? theme.darkAlgorithm
+            : theme.defaultAlgorithm,
+          token: {
+            colorPrimary: '#f97316',
+          },
+        }}
+      >
+        <App darkMode={darkMode} toggleTheme={toggleTheme} />
+      </ConfigProvider>
     </React.StrictMode>
   );
 }
