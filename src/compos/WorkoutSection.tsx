@@ -114,10 +114,10 @@ export function WorkoutSection({ data }: WorkoutSectionProps) {
 
             <Card.Content>
                 <div className="flex flex-col gap-0">
-                    {workout.content.map((section) => (
+                    {workout.content.map((section, index) => (
                         <WorkoutSectionDetails
-                            key={section.section_name}
-                            id={section.section_name}
+                            key={`${workout.wod_id}-${index}`}
+                            id={`${section.section_name}-${index}`}
                             title={section.section_name}
                             content={section.section_content}
                             notes={section.section_notes}

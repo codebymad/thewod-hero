@@ -11,10 +11,18 @@ export interface WorkoutData {
 }
 
 export function useWorkoutNavigation(workoutData: WorkoutData[]) {
+  const getLocalDateString = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const getTodayIndex = () => {
     if (!workoutData || workoutData.length === 0) return 0;
-    const today = new Date().toISOString().split('T')[0];
-    const index = workoutData.findIndex((item) => item.workout_date === today);
+    const todayString = getLocalDateString();
+    const index = workoutData.findIndex((item) => item.workout_date === todayString);
     return index === -1 ? 0 : index;
   };
 
@@ -33,8 +41,8 @@ export function useWorkoutNavigation(workoutData: WorkoutData[]) {
   };
 
   const handleToday = () => {
-    const today = new Date().toISOString().split('T')[0];
-    const todayIndex = workoutData.findIndex((item) => item.workout_date === today);
+    const todayString = getLocalDateString();
+    const todayIndex = workoutData.findIndex((item) => item.workout_date === todayString);
     if (todayIndex !== -1) {
       setCurrentIndex(todayIndex);
     }
@@ -43,7 +51,7 @@ export function useWorkoutNavigation(workoutData: WorkoutData[]) {
   const currentWorkout: WorkoutData | undefined = workoutData?.[currentIndex];
 
   const workoutDate = currentWorkout
-    ? new Date(currentWorkout.workout_date).toLocaleDateString('en-US', {
+    ? new Date(currentWorkout.workout_date + 'T00:00:00').toLocaleDateString('en-US', {
         weekday: 'short',
         month: 'short',
         day: 'numeric',
@@ -53,8 +61,8 @@ export function useWorkoutNavigation(workoutData: WorkoutData[]) {
 
   const isToday = () => {
     if (!currentWorkout) return false;
-    const today = new Date().toISOString().split('T')[0];
-    return currentWorkout.workout_date === today;
+    const todayString = getLocalDateString();
+    return currentWorkout.workout_date === todayString;
   };
 
   const isPrevDisabled = currentIndex === 0;

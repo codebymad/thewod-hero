@@ -1,6 +1,8 @@
-import { Drawer } from "@heroui/react";
-import { CloseButton } from "@heroui/react";
-import { Tabs } from "@heroui/react";
+import { Drawer, Separator } from "@heroui/react";
+import { useNavigate } from "react-router-dom";
+import { House } from '@gravity-ui/icons';
+import { Calendar } from '@gravity-ui/icons';
+import { Person } from '@gravity-ui/icons';
 
 interface WODDrawerProps {
   isOpen: boolean;
@@ -11,6 +13,13 @@ export function WODDrawer({
   isOpen,
   onOpenChange,
 }: WODDrawerProps) {
+
+  const navigate = useNavigate();
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    onOpenChange(false); // Close drawer after navigation
+  };
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -20,35 +29,45 @@ export function WODDrawer({
         <Drawer.Content placement="left">
           <Drawer.Dialog>
             <Drawer.Header>
-              <Drawer.Heading>WOD   <CloseButton slot="close" /></Drawer.Heading>
+              <Drawer.Heading>
+
+                {/* <CloseButton slot="close" /> */}
+
+              </Drawer.Heading>
 
             </Drawer.Header>
 
             <Drawer.Body>
-              <Tabs className="w-full max-w-md">
-                <Tabs.ListContainer>
-                  <Tabs.List aria-label="Options">
-                    <Tabs.Tab id="pages">
-                      Pages
-                      <Tabs.Indicator />
-                    </Tabs.Tab>
-                    <Tabs.Tab id="profile">
-                      Profile
-                      <Tabs.Indicator />
-                    </Tabs.Tab>
-                    {/* <Tabs.Tab id="reports">
-                      Reports
-                      <Tabs.Indicator />
-                    </Tabs.Tab> */}
-                  </Tabs.List>
-                </Tabs.ListContainer>
-                <Tabs.Panel className="pt-4" id="pages">
-                  <p>View your project overview and recent activity.</p>
-                </Tabs.Panel>
-                <Tabs.Panel className="pt-4" id="profile">
-                  <p>Track your metrics and analyze performance data.</p>
-                </Tabs.Panel>
-              </Tabs>
+              <div className="flex flex-col gap-1">
+                <button
+                  type="button"
+                  onClick={() => handleNavigation("/home")}
+                  className="flex w-full cursor-pointer items-center gap-3 rounded-md p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <House className="size-5 shrink-0" />
+                  <span>Home</span>
+                </button>
+
+                <Separator />
+                <button
+                  type="button"
+                  onClick={() => handleNavigation("/wodplanner")}
+                  className="flex w-full cursor-pointer items-center gap-3 rounded-md p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <Calendar className="size-5 shrink-0" />
+                  <span>WOD Planner</span>
+                </button>
+
+                <Separator />
+                <button
+                  type="button"
+                  // onClick={() => handleNavigation("/wodplanner")}
+                  className="flex w-full cursor-not-allowed items-center gap-3 rounded-md p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <Person className="size-5 shrink-0" />
+                  <span>Profile</span>
+                </button>
+              </div>
             </Drawer.Body>
 
             <Drawer.Footer>
@@ -60,7 +79,7 @@ export function WODDrawer({
                 Confirm
               </Button> */}
 
-              <p>Hello</p>
+              <p>the<b>WOD</b></p>
             </Drawer.Footer>
           </Drawer.Dialog>
         </Drawer.Content>

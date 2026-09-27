@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { ConfigProvider, theme } from 'antd'
 import enGB from 'antd/locale/en_GB'
+import { HashRouter } from 'react-router-dom'
 
 function Root() {
   const [darkMode, setDarkMode] = useState(() =>
@@ -20,19 +21,22 @@ function Root() {
 
   return (
     <React.StrictMode>
-      <ConfigProvider
-        locale={enGB}
-        theme={{
-          algorithm: darkMode
-            ? theme.darkAlgorithm
-            : theme.defaultAlgorithm,
-          token: {
-            colorPrimary: '#f97316',
-          },
-        }}
-      >
-        <App darkMode={darkMode} toggleTheme={toggleTheme} />
-      </ConfigProvider>
+      <HashRouter>
+        <ConfigProvider
+          locale={enGB}
+          theme={{
+            algorithm: darkMode
+              ? theme.darkAlgorithm
+              : theme.defaultAlgorithm,
+            token: {
+              colorPrimary: '#f97316',
+            },
+          }}
+        >
+          <App darkMode={darkMode} toggleTheme={toggleTheme} />
+          
+        </ConfigProvider>
+      </HashRouter>
     </React.StrictMode>
   );
 }
