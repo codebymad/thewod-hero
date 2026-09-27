@@ -8,6 +8,14 @@ body,
   margin: 0;
 }
 
+[class*="button--primary"] {
+  background-color: #f97316 !important;
+}
+
+[class*="button--secondary"] {
+  color: #f97316 !important;
+}
+
 body {
   background-repeat: no-repeat;
   background-size: 100% 100%;
