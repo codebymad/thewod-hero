@@ -15,9 +15,16 @@ interface AppProps {
 
 function App({ darkMode, toggleTheme }: AppProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => { return localStorage.getItem('user') !== null; });
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setIsAuthenticated(false);
+  };
+
+
 
   // Hide header on auth page
   const hideHeader = location.pathname === '/auth';
@@ -38,7 +45,7 @@ function App({ darkMode, toggleTheme }: AppProps) {
               <Button variant="ghost" onPress={toggleTheme} isIconOnly>
                 {darkMode ? <Sun /> : <Moon />}
               </Button>
-              <Button variant="ghost" onClick={()=>{navigate("/auth")}} isIconOnly>
+              <Button variant="ghost" onClick={() => { handleLogout }} isIconOnly>
                 <ArrowRightFromSquare />
               </Button>
             </div>

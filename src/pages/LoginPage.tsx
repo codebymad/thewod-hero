@@ -22,7 +22,9 @@ function LoginPage({ setIsAuthenticated }: LoginPageProps) {
 
     const handleLogin = async () => {
         setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        //await new Promise(resolve => setTimeout(resolve, 1000));
+        // Save temporary user 
+        localStorage.setItem('user', JSON.stringify({ id: 'temp', name: 'Temporary User', }));
         setIsAuthenticated(true);
         navigate('/home');
     };
