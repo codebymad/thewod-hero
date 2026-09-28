@@ -8,7 +8,6 @@ import {
 } from "@internationalized/date";
 
 import {
-    Button,
     Calendar,
     Chip,
     Description,
@@ -20,7 +19,6 @@ import {
     ClockArrowRotateLeft,
     Calendar as CalendarIcon,
 } from "@gravity-ui/icons";
-import { LocationArrowFill } from '@gravity-ui/icons';
 
 export default function NewWeekPicker() {
 
@@ -224,7 +222,7 @@ export default function NewWeekPicker() {
 
     return (
         <div 
-        // className="flex flex-col items-center gap-4"
+         className="flex flex-col items-center gap-4"
         >
 
             {/* ------------------------------------------ */}
@@ -248,7 +246,7 @@ export default function NewWeekPicker() {
             {/* ------------------------------------------ */}
 
             <Calendar
-                // className="w-full max-w-xl mx-auto"
+                 className="w-full max-w-xl mx-auto"
                 aria-label="Event dates"
 
                 selectionMode="multiple"
@@ -367,12 +365,12 @@ export default function NewWeekPicker() {
                 )}
 
 
-                <Button variant='secondary' size="sm" onClick={() => {
+                {/* <Button variant='secondary' size="sm" onClick={() => {
                     console.log(weekDates);
                     setCalView('week')
                 }}>
                     <LocationArrowFill />
-                    Submit</Button>
+                    Submit</Button> */}
             </div>
 
         </div>

@@ -2,11 +2,11 @@ import './App.css'
 import { Flex } from 'antd';
 import { useState } from 'react';
 import { Button, Header } from '@heroui/react';
-import { Moon, Sun } from '@gravity-ui/icons';
+import { Moon, Sun, ArrowRightFromSquare } from '@gravity-ui/icons';
 import { Bars } from '@gravity-ui/icons';
 import { WODDrawer } from './compos/WODDrawer';
 import WodAppRouter from './WODRouter';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface AppProps {
   darkMode: boolean;
@@ -15,32 +15,46 @@ interface AppProps {
 
 function App({ darkMode, toggleTheme }: AppProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
+  // Hide header on auth page
+  const hideHeader = location.pathname === '/auth';
   return (
     <>
-      <Header>
-        <Flex align="center" justify="space-between">
-          <Button variant="ghost" onPress={() => setDrawerOpen(true)} isIconOnly>
-            <Bars />
-          </Button>
+      {!hideHeader && (
+        <Header>
+          <Flex align="center" justify="space-between">
+            <Button variant="ghost" onPress={() => setDrawerOpen(true)} isIconOnly>
+              <Bars />
+            </Button>
 
-          <div className="cursor-pointer text-xl font-bold" onClick={() => navigate("/home")}>
-            the<strong>WOD</strong>
-          </div>
+            <div className="cursor-pointer text-xl font-bold" onClick={() => navigate("/home")}>
+              the<strong>WOD</strong>
+            </div>
 
-          <Button variant="ghost" onPress={toggleTheme} isIconOnly>
-            {darkMode ? <Sun /> : <Moon />}
-          </Button>
-        </Flex>
-      </Header>
+            <div>
+              <Button variant="ghost" onPress={toggleTheme} isIconOnly>
+                {darkMode ? <Sun /> : <Moon />}
+              </Button>
+              <Button variant="ghost" onClick={()=>{navigate("/auth")}} isIconOnly>
+                <ArrowRightFromSquare />
+              </Button>
+            </div>
+          </Flex>
+        </Header>
+      )}
+
 
       {/* Pages */}
-      <WodAppRouter />
+      <WodAppRouter isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
 
 
       {/* Drawer */}
-      <WODDrawer isOpen={drawerOpen} onOpenChange={setDrawerOpen} />
+      {!hideHeader && (
+        <WODDrawer isOpen={drawerOpen} onOpenChange={setDrawerOpen} />
+      )}
     </>
   );
 }

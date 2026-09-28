@@ -14,11 +14,13 @@ import {
     Description,
     Label,
     ListBox,
+    Separator
 } from "@heroui/react";
 import { useState } from "react";
 import NewWeekPicker from "../compos/NewWeekPicker";
-import { Briefcase, Check, ListTimeline } from "@gravity-ui/icons";
-
+import { ArrowRotateLeft, Briefcase, Check, ChevronDown, ListTimeline } from "@gravity-ui/icons";
+import { Layers3Diagonal, } from '@gravity-ui/icons';
+import { Stop, SquareBracketsBarsVertical } from '@gravity-ui/icons';
 
 const gyms = [
     {
@@ -116,16 +118,20 @@ function WODPlanner() {
 
     return (
         <>
+
             <NewWeekPicker />
 
-            <div className="flex flex-col items-center gap-2 md:flex-row md:items-center">
+            <div className="flex flex-row items-center gap-2 md:flex-row md:items-center">
                 <Chip
                     size="lg"
                     className="cursor-pointer"
                     onClick={() => openDialog("gym")}
                 >
                     <Briefcase />
+                    <Separator orientation="vertical" />
                     {gym}
+                    <Separator orientation="vertical" />
+                    <ChevronDown />
                 </Chip>
 
                 <Chip
@@ -134,9 +140,26 @@ function WODPlanner() {
                     onClick={() => openDialog("program")}
                 >
                     <ListTimeline />
+                    <Separator orientation="vertical" />
                     {program}
+                    <Separator orientation="vertical" />
+                    <ChevronDown />
                 </Chip>
             </div>
+
+            <Chip size="lg" aria-label="Bold" id="bold">
+                <Stop /> <Separator orientation='vertical' /> One
+            </Chip>
+            <Chip size="lg" aria-label="Italic" id="italic">
+                <Layers3Diagonal />  <Separator orientation='vertical' /> Three
+            </Chip>
+            <Chip size="lg" aria-label="Underline" id="underline">
+                <SquareBracketsBarsVertical /> <Separator orientation='vertical' />   Fit All
+            </Chip>
+            <Chip size="lg" aria-label="Strikethrough" id="strikethrough">
+                <ArrowRotateLeft /> <Separator orientation='vertical' /> Reset
+            </Chip>
+
 
 
 
@@ -159,6 +182,7 @@ function WODPlanner() {
                     </div>
                 ))}
             </div>
+
 
 
             <AlertDialog
