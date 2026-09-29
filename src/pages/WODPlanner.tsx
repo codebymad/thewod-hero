@@ -121,10 +121,10 @@ function WODPlanner() {
 
             <NewWeekPicker />
 
-            <div className="flex flex-row items-center gap-2 md:flex-row md:items-center">
+            <div className="grid grid-cols-2 gap-2 w-full">
                 <Chip
                     size="lg"
-                    className="cursor-pointer"
+                    className="cursor-pointer w-full"
                     onClick={() => openDialog("gym")}
                 >
                     <Briefcase />
@@ -136,7 +136,7 @@ function WODPlanner() {
 
                 <Chip
                     size="lg"
-                    className="cursor-pointer"
+                    className="cursor-pointer w-full"
                     onClick={() => openDialog("program")}
                 >
                     <ListTimeline />
@@ -147,18 +147,9 @@ function WODPlanner() {
                 </Chip>
             </div>
 
-            <Chip size="lg" aria-label="Bold" id="bold">
-                <Stop /> <Separator orientation='vertical' /> One
-            </Chip>
-            <Chip size="lg" aria-label="Italic" id="italic">
-                <Layers3Diagonal />  <Separator orientation='vertical' /> Three
-            </Chip>
-            <Chip size="lg" aria-label="Underline" id="underline">
-                <SquareBracketsBarsVertical /> <Separator orientation='vertical' />   Fit All
-            </Chip>
-            <Chip size="lg" aria-label="Strikethrough" id="strikethrough">
-                <ArrowRotateLeft /> <Separator orientation='vertical' /> Reset
-            </Chip>
+
+
+
 
 
 
@@ -175,6 +166,21 @@ function WODPlanner() {
             </div>
 
             {/* Desktop */}
+            <div className="hidden md:flex">
+                <Chip size="lg" aria-label="Bold" id="bold">
+                    <Stop /> <Separator orientation='vertical' /> One
+                </Chip>
+                <Chip size="lg" aria-label="Italic" id="italic">
+                    <Layers3Diagonal />  <Separator orientation='vertical' /> Three
+                </Chip>
+                <Chip size="lg" aria-label="Underline" id="underline">
+                    <SquareBracketsBarsVertical /> <Separator orientation='vertical' />   Fit All
+                </Chip>
+                <Chip size="lg" aria-label="Strikethrough" id="strikethrough">
+                    <ArrowRotateLeft /> <Separator orientation='vertical' /> Reset
+                </Chip>
+            </div>
+
             <div className="hidden md:flex flex-row gap-4">
                 {itemsC.map((item) => (
                     <div key={item} className="flex-1">

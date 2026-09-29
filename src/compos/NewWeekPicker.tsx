@@ -10,7 +10,7 @@ import {
 import {
     Calendar,
     Chip,
-    Description,
+    // Description,
 } from "@heroui/react";
 
 import { useState } from "react";
@@ -341,11 +341,11 @@ export default function NewWeekPicker() {
             {/* Description */}
             {/* ------------------------------------------ */}
 
-            <Description className="text-center">
+            {/* <Description className="text-center">
                 {weekDates.length
                     ? `${weekDates.length} date(s) selected`
                     : "Select a date"}
-            </Description>
+            </Description> */}
 
 
             <div className="flex flex-row">
