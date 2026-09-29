@@ -1,5 +1,4 @@
 import './App.css'
-import { Flex } from 'antd';
 import { useState } from 'react';
 import { Button, Header } from '@heroui/react';
 import { Moon, Sun, ArrowRightFromSquare } from '@gravity-ui/icons';
@@ -32,16 +31,20 @@ function App({ darkMode, toggleTheme }: AppProps) {
     <>
       {!hideHeader && (
         <Header>
-          <Flex align="center" justify="space-between">
-            <Button variant="ghost" onPress={() => setDrawerOpen(true)} isIconOnly>
-              <Bars />
-            </Button>
+          <div className="grid grid-cols-3 items-center">
 
-            <div className="cursor-pointer text-xl font-bold" onClick={() => navigate("/home")}>
+            <div className="flex">
+              <Button variant="ghost" onPress={() => setDrawerOpen(true)} isIconOnly>
+                <Bars />
+              </Button>
+            </div>
+
+            <div className="text-center text-xl font-bold cursor-pointer text-white"
+              onClick={() => navigate("/home")}>
               the<strong>WOD</strong>
             </div>
 
-            <div>
+            <div className="flex justify-end gap-2">
               <Button variant="ghost" onPress={toggleTheme} isIconOnly>
                 {darkMode ? <Sun /> : <Moon />}
               </Button>
@@ -49,8 +52,11 @@ function App({ darkMode, toggleTheme }: AppProps) {
                 <ArrowRightFromSquare />
               </Button>
             </div>
-          </Flex>
+
+          </div>
         </Header>
+
+
       )}
 
 

@@ -5,6 +5,7 @@ import './index.css'
 import { ConfigProvider, theme } from 'antd'
 import enGB from 'antd/locale/en_GB'
 import { HashRouter } from 'react-router-dom'
+import "@auto-skeleton/react/styles.css";
 
 function Root() {
   const [darkMode, setDarkMode] = useState(() =>
