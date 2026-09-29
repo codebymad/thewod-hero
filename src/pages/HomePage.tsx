@@ -235,7 +235,7 @@ function HomePage() {
                             <QuotesComponent />
 
                             {/* Score and Rate */}
-                            <ScoreAndRateComponent />
+                            <ScoreAndRateComponent todaysDate={workoutDate}/>
                         </div>
                     </div>
                 </div>
