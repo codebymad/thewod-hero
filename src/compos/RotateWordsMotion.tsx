@@ -1,4 +1,3 @@
-"use client"
 import * as React from "react"
 import { AnimatePresence, motion } from "framer-motion"
 
@@ -9,30 +8,21 @@ export function RotateWordsMotion({
     text: string
     words: string[]
 }) {
-    const [index, setIndex] = React.useState(0)
-    const [isFinal, setIsFinal] = React.useState(false)
+    const [index, setIndex] = React.useState(0);
 
     React.useEffect(() => {
-        if (isFinal) return // Stop if we've reached the last word
-
-        const interval = setInterval(() => {
-            setIndex((prevIndex) => {
-                const nextIndex = prevIndex + 1
-                if (nextIndex === words.length - 1) {
-                    setIsFinal(true) // Stop at last word
-                }
-                return nextIndex
-            })
-        }, 1000)
-
-        return () => clearInterval(interval)
-    }, [words.length, isFinal])
-
+        const currentWord = words[index];
+        const delay = currentWord === 'WOD' ? 3000 : 1000;
+        const timeout = setTimeout(() => {
+            setIndex((prevIndex) => (prevIndex + 1) % words.length);
+        }, delay);
+        return () => clearTimeout(timeout);
+    }, [index, words]);
 
     return (
 
-        <div className={`${isFinal ? 'text-center' : 'text-left'} transition-all duration-500`}>
-            <div className={`text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter flex ${isFinal ? 'justify-center' : 'justify-start'} gap-2 transition-all duration-500`}>
+        <div className={`'text-left' transition-all duration-500`}>
+            <div className={`text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter flex 'justify-start' gap-2 transition-all duration-500`}>
                 {text}{' '}
                 <AnimatePresence mode="wait">
                     <motion.span

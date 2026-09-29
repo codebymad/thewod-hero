@@ -1,8 +1,9 @@
 import { Accordion, Card } from '@heroui/react';
 import MarkdownComponent from './MarkdownComponent';
 import type { ReactNode } from 'react';
-import { ChevronDown, Sun, Bars, Target, Flame } from "@gravity-ui/icons";
+import { ChevronDown } from "@gravity-ui/icons";
 import { useState } from 'react';
+import { IconBarbell, IconDumbbell, IconTreadmill, IconStretching, IconJumpRope, IconExerciseBall, IconAcrobatic } from '@tabler/icons-react';
 
 interface SectionContent {
     section_name: string;
@@ -27,15 +28,25 @@ interface WorkoutSectionProps {
     data: WorkoutData;
 }
 
+// const sectionIconMap = {
+//     strength: <Sun className="text-orange-500" />,
+//     metcon: <Bars className="text-orange-500" />,
+//     accessory: <Target className="text-orange-500" />,
+//     accessories: <Target className="text-orange-500" />,
+//     skill: <Flame className="text-orange-500" />,
+//     warmup: <Sun className="text-orange-500" />,
+//     conditioning: <Bars className="text-orange-500" />,
+//     cooldown: <Target className="text-orange-500" />,
+// };
 const sectionIconMap = {
-    strength: <Sun className="text-orange-500" />,
-    metcon: <Bars className="text-orange-500" />,
-    accessory: <Target className="text-orange-500" />,
-    accessories: <Target className="text-orange-500" />,
-    skill: <Flame className="text-orange-500" />,
-    warmup: <Sun className="text-orange-500" />,
-    conditioning: <Bars className="text-orange-500" />,
-    cooldown: <Target className="text-orange-500" />,
+    strength: <IconBarbell className="text-orange-500" />,
+    metcon: <IconDumbbell className="text-orange-500" />,
+    accessory: <IconExerciseBall className="text-orange-500" />,
+    accessories: <IconExerciseBall className="text-orange-500" />,
+    skill: <IconAcrobatic className="text-orange-500" />,
+    warmup: <IconTreadmill className="text-orange-500" />,
+    conditioning: <IconJumpRope className="text-orange-500" />,
+    cooldown: <IconStretching className="text-orange-500" />,
 };
 
 function WorkoutSectionDetails({

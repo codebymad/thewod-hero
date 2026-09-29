@@ -17,6 +17,7 @@
     "@heroui/react": "^3.2.6",
     "@heroui/styles": "^3.2.6",
     "@supabase/supabase-js": "^2.117.2",
+    "@tabler/icons-react": "^3.48.0",
     "@tailwindcss/vite": "^4.3.3",
     "antd": "^6.6.5",
     "framer-motion": "^13.4.4",

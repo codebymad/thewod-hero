@@ -45,7 +45,7 @@ function App({ darkMode, toggleTheme }: AppProps) {
               <Button variant="ghost" onPress={toggleTheme} isIconOnly>
                 {darkMode ? <Sun /> : <Moon />}
               </Button>
-              <Button variant="ghost" onClick={() => { handleLogout }} isIconOnly>
+              <Button variant="ghost" onPress={handleLogout} isIconOnly>
                 <ArrowRightFromSquare />
               </Button>
             </div>

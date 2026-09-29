@@ -13,7 +13,7 @@ function WodAppRouter({ isAuthenticated, setIsAuthenticated }: WodAppRouterProps
     return (
         <Routes>
             <Route path="/" element={<Navigate to="/auth" replace />} />
-            <Route path="/auth" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="/auth" element={<LoginPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
             
             <Route path="/home" element={<WODRouterPrivate isAuthenticated={isAuthenticated}><HomePage /></WODRouterPrivate>} />
             <Route path="/wodplanner" element={<WODRouterPrivate isAuthenticated={isAuthenticated}><WODPlanner /></WODRouterPrivate>} />
