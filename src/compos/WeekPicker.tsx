@@ -74,11 +74,16 @@ function WeekPicker() {
         <>
             <Flex gap="small" justify="flex-start" align="flex-start" vertical>
                 <DatePicker
+
                     defaultValue={dayjs()}
                     onFocus={(e) => e.target.click()}
                     format={customWeekStartEndFormat}
                     picker="week"
                     onChange={onChange}
+                    style={{
+                        borderRadius: 16, // HeroUI-like
+                        padding: "6px 10px",
+                    }}
                 />
             </Flex>
         </>
