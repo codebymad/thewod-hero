@@ -1,9 +1,11 @@
 
-import { Briefcase, Check, ChevronDown, ListTimeline } from "@gravity-ui/icons";
-import { Button, Description, Label, Chip, AlertDialog, ListBox } from "@heroui/react";
+import { Briefcase, Check, ChevronDown, CircleFill, ListTimeline, Pencil } from "@gravity-ui/icons";
+import { Button, Description, Label, Chip, AlertDialog, ListBox, Surface, ChipLabel } from "@heroui/react";
 import { useState } from "react";
 import WeekPicker from "../compos/WeekPicker";
 import { Carousel } from "antd";
+import MarkdownComponent from "../compos/MarkdownComponent";
+import { IconRestore } from '@tabler/icons-react';
 
 function WorkoutBuilder() {
     //  const [value, setValue] = useState<DateValue | null>(today(getLocalTimeZone()));
@@ -64,6 +66,84 @@ function WorkoutBuilder() {
 
     const itemsC = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
+    type SectionType = "Warm Up" | "Strength" | "Metcon" | "Conditioning" | "Accessory" | "Cooldown";
+
+    type WorkoutSection = {
+        name: SectionType;
+        content: string;  // markdown
+        notes?: string[]; // coach notes, stimulus, tips
+    };
+
+    const workout = {
+        id: "1",
+        name: "Push Day",
+        date: "Sep 30, 2026",
+        durationMin: 75,
+        bodyParts: ["Chest", "Shoulders", "Triceps", "Abs"],
+        sections: [
+            {
+                name: "Warm Up",
+                content: `**2 rounds:**
+- 10 band pull-aparts
+- 10 scap push-ups
+- 10 arm circles each direction`,
+                notes: [
+                    "Keep it easy.",
+                    "Focus on shoulder mobility before pressing.",
+                ],
+            },
+            {
+                name: "Strength",
+                content: `**Bench Press**
+
+5 x 5 @ 75 kg
+
+Rest 2 min between sets`,
+                notes: [
+                    "Controlled tempo down, explosive up.",
+                    "Leave 1-2 reps in reserve.",
+                ],
+            },
+            {
+                name: "Metcon",
+                content: `**12 min AMRAP:**
+- 8 dumbbell push press (22.5 kg)
+- 10 push-ups
+- 12 air squats`,
+                notes: [
+                    "Stimulus: steady pace, unbroken push press.",
+                    "Aim for 5+ rounds.",
+                ],
+            },
+            {
+                name: "Conditioning",
+                content: `**3 rounds:**
+- 250 m row
+- 15 sit-ups
+
+Rest 1 min between rounds`,
+                notes: ["Moderate effort.", "Keep the rower pace consistent."],
+            },
+            {
+                name: "Accessory",
+                content: `- Tricep Dips: 3 x 12
+- Lateral Raise: 3 x 15
+- Plank: 3 x 45 sec`,
+            },
+            {
+                name: "Cooldown",
+                content: `- 2 min chest doorway stretch
+- 2 min child's pose
+- Easy breathing`,
+                notes: ["Slow nasal breathing to bring your heart rate down."],
+            },
+        ] as WorkoutSection[],
+    };
+
+    const onEdit = (id: string) => {
+        console.log(id)
+    };
+
 
     return (
         <>
@@ -120,8 +200,13 @@ function WorkoutBuilder() {
                 </div>
 
                 {/* DATE (WeekPicker) */}
-                <div className="w-full md:flex-1 order-3 md:order-2 md:justify-center items-center justify-center flex">
-                    <WeekPicker />
+                <div className="order-3 flex w-full basis-full items-center justify-center gap-2 md:order-2 md:w-auto md:flex-1 md:basis-auto">
+                    <div className="min-w-0 flex-1 md:flex-none">
+                        <WeekPicker />
+                    </div>
+                    <Button variant="tertiary" isIconOnly>
+                        <IconRestore stroke={2} />
+                    </Button>
                 </div>
 
             </div>
@@ -130,9 +215,80 @@ function WorkoutBuilder() {
             <div className="block md:hidden px-4 py-1">
                 <Carousel dotPlacement="top">
                     {itemsC.map((item) => (
-                        <div key={item}>
-                            <h3 style={contentStyle}>{item}</h3>
-                        </div>
+                        // <Surface key={item} className="flex min-w-full flex-col gap-3 rounded-3xl p-6" variant="default">
+                        //     <h3 className="text-base font-semibold text-foreground">Surface Content</h3>
+                        //     <p className="text-sm text-muted">
+                        //         This is a default surface variant. It uses bg-surface styling.
+                        //     </p>
+                        // </Surface>
+
+                        <Surface className="flex min-w-full flex-col gap-5 rounded-3xl p-3" variant="default">
+                            {/* Header */}
+                            <div className="flex items-start justify-between gap-3">
+                                <div className="flex flex-col gap-1">
+                                    <h3 className="text-base font-semibold text-foreground">{workout.name}</h3>
+                                    <p className="text-xs text-muted">
+                                        {workout.date} . {item}
+                                        {/* · {workout.durationMin} min */}
+                                    </p>
+                                </div>
+                                <Button
+                                    variant="secondary"
+                                    size="sm"
+                                    aria-label={`Edit ${workout.name}`}
+                                    onClick={() => onEdit(workout.id)}
+                                    isIconOnly
+                                >
+                                    <Pencil />
+                                </Button>
+                            </div>
+
+                            {/* Body part tags */}
+                            <div className="flex flex-wrap gap-2 py-2">
+                                {workout.bodyParts.map((part) => (
+                                    <span
+                                        key={part}
+                                        className="rounded-full bg-foreground/10 px-3 py-1 text-xs font-medium text-foreground"
+                                    >
+                                        {part}
+                                    </span>
+                                ))}
+                            </div>
+
+                            {/* Sections */}
+                            <div className="flex flex-col gap-4">
+                                {workout.sections.map((section) => (
+                                    <div
+                                        key={section.name}
+                                        className="flex flex-col gap-3 rounded-2xl border border-foreground/10 p-2.5"
+                                    >
+
+                                        <Chip className="font-semibold uppercase tracking-wide text-muted">
+                                            <CircleFill width={6} />
+                                            <ChipLabel> {section.name}</ChipLabel>
+                                        </Chip>
+
+
+                                        {/* Markdown content */}
+                                        <div className="text-sm text-foreground">
+                                            <MarkdownComponent markdown={section.content} />
+                                        </div>
+
+                                        {/* Notes */}
+                                        {section.notes && section.notes.length > 0 && (
+                                            <div className="rounded-xl bg-foreground/5 px-2 py-2">
+                                                <p className="mb-1 text-xs font-semibold text-foreground">Notes</p>
+                                                <ul className="list-disc space-y-1 pl-4 text-xs text-muted">
+                                                    {section.notes.map((note, i) => (
+                                                        <li key={i}>{note}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </Surface>
                     ))}
                 </Carousel>
             </div>
