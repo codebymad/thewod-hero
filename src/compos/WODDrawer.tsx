@@ -1,6 +1,6 @@
 import { Drawer, Separator } from "@heroui/react";
 import { useNavigate } from "react-router-dom";
-import { House } from '@gravity-ui/icons';
+import { House, ListCheck } from '@gravity-ui/icons';
 import { Calendar } from '@gravity-ui/icons';
 import { Person } from '@gravity-ui/icons';
 
@@ -46,6 +46,16 @@ export function WODDrawer({
                 >
                   <House className="size-5 shrink-0" />
                   <span>Home</span>
+                </button>
+
+                <Separator />
+                <button
+                  type="button"
+                  onClick={() => handleNavigation("/programs")}
+                  className="flex w-full cursor-pointer items-center gap-3 rounded-md p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <ListCheck className="size-5 shrink-0" />
+                  <span>Programs</span>
                 </button>
 
                 <Separator />

@@ -1,6 +1,6 @@
 import './App.css'
 import { useState } from 'react';
-import { Button, Header } from '@heroui/react';
+import { Button, Header, Typography } from '@heroui/react';
 import { Moon, Sun, ArrowRightFromSquare } from '@gravity-ui/icons';
 import { Bars } from '@gravity-ui/icons';
 import { WODDrawer } from './compos/WODDrawer';
@@ -39,10 +39,12 @@ function App({ darkMode, toggleTheme }: AppProps) {
               </Button>
             </div>
 
-            <div className="text-center text-xl font-bold cursor-pointer text-white"
+            {/* <div className="text-center text-xl font-bold cursor-pointer"
               onClick={() => navigate("/home")}>
               the<strong>WOD</strong>
-            </div>
+            </div> */}
+
+            <Typography type="h1" className="text-center text-xl font-bold cursor-pointer">the<strong>WOD</strong></Typography>
 
             <div className="flex justify-end gap-2">
               <Button variant="ghost" onPress={toggleTheme} isIconOnly>

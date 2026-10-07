@@ -74,7 +74,6 @@ function WeekPicker() {
         <>
             <Flex gap="small" justify="flex-start" align="flex-start" vertical>
                 <DatePicker
-
                     defaultValue={dayjs()}
                     onFocus={(e) => e.target.click()}
                     format={customWeekStartEndFormat}
