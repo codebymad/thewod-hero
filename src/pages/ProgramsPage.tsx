@@ -1,4 +1,4 @@
-import { Accordion, Card, Chip, Description, Label, ProgressBar, Typography } from "@heroui/react";
+import { Accordion, Card, Chip, Label, ProgressBar, Typography } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { getAllPrograms } from "../libs/SupabaseEdgeFunctions";
 import { SquareListUl, SparklesFill } from '@gravity-ui/icons';

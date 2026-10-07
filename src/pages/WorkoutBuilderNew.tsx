@@ -2,7 +2,6 @@ import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Grid } from "antd";
 import dayjs, { type Dayjs } from "dayjs";
 import {
-    AlertDialog,
     Button,
     ButtonGroup,
     Dropdown,
@@ -23,7 +22,6 @@ import {
     IconRestore,
 } from "@tabler/icons-react";
 import WeekPicker from "../compos/WeekPicker";
-import { CircleCheck, LockOpen } from "@gravity-ui/icons";
 import { AddNewWorkout } from "./AddNewWorkout";
 
 /* ----------------------------- date helpers ----------------------------- */

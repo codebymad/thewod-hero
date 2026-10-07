@@ -3,7 +3,6 @@ import HomePage from "./pages/HomePage";
 import WODPlanner from "./pages/WODPlanner";
 import LoginPage from "./pages/LoginPage";
 import { WODRouterPrivate } from "./WODRouterPrivate";
-import WorkoutBuilder from "./pages/WorkoutBuilder";
 import WorkoutBuilderNew from "./pages/WorkoutBuilderNew";
 import ProgramsPage from "./pages/ProgramsPage";
 
@@ -20,7 +19,6 @@ function WodAppRouter({ isAuthenticated, setIsAuthenticated }: WodAppRouterProps
 
             <Route path="/home" element={<WODRouterPrivate isAuthenticated={isAuthenticated}><HomePage /></WODRouterPrivate>} />
             <Route path="/wodplannerold" element={<WODRouterPrivate isAuthenticated={isAuthenticated}><WODPlanner /></WODRouterPrivate>} />
-            <Route path="/wodplannerold1" element={<WODRouterPrivate isAuthenticated={isAuthenticated}><WorkoutBuilder /></WODRouterPrivate>} />
             <Route path="/wodplanner" element={<WODRouterPrivate isAuthenticated={isAuthenticated}><WorkoutBuilderNew /></WODRouterPrivate>} />
             <Route path="/programs" element={<WODRouterPrivate isAuthenticated={isAuthenticated}><ProgramsPage /></WODRouterPrivate>} />
 

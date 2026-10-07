@@ -14,7 +14,7 @@ export default function DemoCarousel() {
 
     const onChange = (currSlide: number) => {
         setCurrentSlide(currSlide)
-        console.log(currSlide);
+        console.log(currSlide, currentSlide, dotCount);
     };
 
     const contentStyle: React.CSSProperties = {
