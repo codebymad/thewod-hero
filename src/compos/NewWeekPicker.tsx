@@ -9,8 +9,7 @@ import {
 
 import {
     Calendar,
-    Chip,
-    // Description,
+    Chip
 } from "@heroui/react";
 
 import { useState } from "react";

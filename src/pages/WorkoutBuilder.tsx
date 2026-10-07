@@ -1,11 +1,12 @@
 
-import { Briefcase, Check, ChevronDown, CircleFill, ListTimeline, Pencil } from "@gravity-ui/icons";
-import { Button, Description, Label, Chip, AlertDialog, ListBox, Surface, ChipLabel } from "@heroui/react";
-import { useState } from "react";
+import { ArrowRotateLeft, Briefcase, Check, ChevronDown, ChevronLeft, ChevronRight, ChevronsCollapseFromLines, CircleFill, CircleNumber1, CircleNumber2, CircleNumber3, CircleNumber4, CircleNumber5, CircleNumber6, CircleNumber7, Layers3Diagonal, ListTimeline, Pencil, SquareBracketsBarsVertical, Stop } from "@gravity-ui/icons";
+import { Button, Description, Label, Chip, AlertDialog, ListBox, Surface, ChipLabel, Separator, ButtonGroup, Card, CardContent } from "@heroui/react";
+import { useEffect, useRef, useState } from "react";
 import WeekPicker from "../compos/WeekPicker";
-import { Carousel } from "antd";
+import { Carousel, Grid, type CarouselRef } from "antd";
 import MarkdownComponent from "../compos/MarkdownComponent";
-import { IconRestore } from '@tabler/icons-react';
+import { IconRestore, IconColumns1, IconColumns2, IconColumns3, IconTallymark4, IconCircleCheck } from '@tabler/icons-react';
+import DemoCarousel from "../compos/DemoCarousel";
 
 function WorkoutBuilder() {
     //  const [value, setValue] = useState<DateValue | null>(today(getLocalTimeZone()));
@@ -145,75 +146,213 @@ Rest 1 min between rounds`,
     };
 
 
+    const { useBreakpoint } = Grid;
+
+    const [mode, setMode] = useState<'all' | 'weekdays'>('all');
+    const screens = useBreakpoint();
+    const isMobile = !screens.md;          // md = 768px and up
+    const [slideCount, setSlideCount] = useState(3);
+    const startIndex = mode === 'weekdays' ? 1 : 0;
+
+    useEffect(() => {
+        setSlideCount(isMobile ? 1 : 3);
+    }, [isMobile]);
+
+
+    const TopPrevArrow = (props: any) => (
+        <div onClick={props.onClick} className="absolute top-0 right-12 z-10 cursor-pointer">
+            <ChevronLeft />
+        </div>
+    );
+
+    const TopNextArrow = (props: any) => (
+        <div onClick={props.onClick} className="absolute top-0 right-4 z-10 cursor-pointer">
+            <ChevronRight />
+        </div>
+    );
+
+    const carouselRef = useRef<CarouselRef>(null);
+    const [currentSlide, setCurrentSlide] = useState(startIndex);
+    const maxSlideIndex = Math.max(0, itemsC.length - slideCount);
+
+    // Number of valid carousel positions
+    const dotCount = maxSlideIndex + 1;
+
+    useEffect(() => {
+        setCurrentSlide(startIndex);
+    }, [startIndex, slideCount]);
+
+
     return (
         <>
 
-            <div className="flex w-full flex-col md:flex-row items-center gap-2 px-4 py-4">
+
+            <DemoCarousel />
+
+            <div className="flex w-full flex-col items-center gap-2 px-4 py-4 md:flex-row">
 
                 {/* GYM */}
-                <div className="w-full md:flex-1 order-1 md:order-1 md:justify-start flex">
+                <div className="order-1 flex w-full md:order-1 md:flex-1 md:justify-start">
                     <Chip
                         size="lg"
-                        className="cursor-pointer w-full md:w-auto flex items-center justify-between gap-2"
+                        className="flex w-full cursor-pointer items-center justify-between gap-2 md:w-auto"
                         onClick={() => openDialog("gym")}
                     >
-                        {/* LEFT ICON */}
                         <div className="flex items-center gap-2">
                             <Briefcase />
                         </div>
 
-                        {/* MIDDLE CONTENT */}
-                        <div className="flex-1 text-center truncate">
+                        <div className="min-w-0 flex-1 truncate text-center">
                             {gym}
                         </div>
 
-                        {/* RIGHT ICON */}
                         <div className="flex items-center gap-2">
                             <ChevronDown />
                         </div>
                     </Chip>
                 </div>
 
-                {/* PROGRAM */}
-                <div className="w-full md:flex-1 order-2 md:order-3 md:justify-end flex">
+                {/* DATE */}
+                <div className="order-3 flex w-full items-center justify-center gap-2 md:order-2 md:flex-1">
+                    <div className="min-w-0">
+                        <WeekPicker />
+                    </div>
 
+                    <Button variant="tertiary" isIconOnly>
+                        <IconRestore stroke={2} />
+                    </Button>
+
+                    <Button variant="secondary" isIconOnly>
+                        <IconCircleCheck stroke={2} />
+                    </Button>
+                </div>
+
+                {/* PROGRAM */}
+                <div className="order-2 flex w-full md:order-3 md:flex-1 md:justify-end">
                     <Chip
                         size="lg"
-                        className="cursor-pointer w-full md:w-auto flex items-center justify-between gap-2"
+                        className="flex w-full cursor-pointer items-center justify-between gap-2 md:w-auto"
                         onClick={() => openDialog("program")}
                     >
-                        {/* LEFT ICON */}
                         <div className="flex items-center gap-2">
                             <ListTimeline />
                         </div>
 
-                        {/* MIDDLE CONTENT */}
-                        <div className="flex-1 text-center truncate">
+                        <div className="min-w-0 flex-1 truncate text-center">
                             {program}
                         </div>
 
-                        {/* RIGHT ICON */}
                         <div className="flex items-center gap-2">
                             <ChevronDown />
                         </div>
                     </Chip>
                 </div>
 
-                {/* DATE (WeekPicker) */}
-                <div className="order-3 flex w-full basis-full items-center justify-center gap-2 md:order-2 md:w-auto md:flex-1 md:basis-auto">
-                    <div className="min-w-0 flex-1 md:flex-none">
-                        <WeekPicker />
-                    </div>
-                    <Button variant="tertiary" isIconOnly>
-                        <IconRestore stroke={2} />
-                    </Button>
-                </div>
-
             </div>
 
+
+            <div className="w-full flex flex-col md:flex-row md:justify-end md:items-center gap-4">
+
+                {/* CHIPS */}
+                <div className="hidden md:flex px-4">
+                    <Chip size="lg" onClick={() => { setMode('all'); setSlideCount(1) }}>
+                        <IconColumns1 /> <Separator orientation='vertical' />
+                    </Chip>
+                    <Chip size="lg" onClick={() => { setMode('all'); setSlideCount(2) }}>
+                        <IconColumns2 /> <Separator orientation='vertical' />
+                    </Chip>
+                    <Chip size="lg" onClick={() => { setMode('all'); setSlideCount(3) }}>
+                        <IconColumns3 /> <Separator orientation='vertical' />
+                    </Chip>
+                    <Chip size="lg" onClick={() => { setMode('all'); setSlideCount(4) }}>
+                        <IconTallymark4 /> <Separator orientation='vertical' />
+                    </Chip>
+                    <Chip size="lg" onClick={() => { setMode('weekdays'); setSlideCount(5) }}>
+                        <ChevronsCollapseFromLines /> <Separator orientation='vertical' /> Weekdays
+                    </Chip>
+                    <Chip size="lg" onClick={() => { setMode('all'); setSlideCount(7) }}>
+                        <CircleNumber7 /> <Separator orientation='vertical' /> All
+                    </Chip>
+                </div>
+
+                {/* CAROUSEL CONTROLS */}
+                <div className="px-4 w-full md:py-4 md:w-auto">
+                    {/* <Card>
+                        <CardContent className="flex justify-center"> */}
+                    <ButtonGroup size="lg" variant="primary" className="flex items-center">
+
+                        {/* LEFT ARROW */}
+                        <Button
+                            isIconOnly
+                            variant="outline"
+                            onClick={() => carouselRef.current?.prev()}
+                            isDisabled={currentSlide === 0}
+                        >
+                            <ChevronLeft className="size-5" />
+                        </Button>
+
+                        <ButtonGroup.Separator />
+
+                        {/* DOTS (must be wrapped, not direct children) */}
+                        <div className="flex items-center gap-1.5 px-2">
+                            {Array.from({ length: dotCount }).map((_, index) => {
+                                const isActive = currentSlide === index;
+
+                                return (
+                                    <Button
+                                        key={index}
+                                        isIconOnly
+                                        variant="outline"
+                                        size="md"
+                                        onClick={() => carouselRef.current?.goTo(index)}
+                                        className={`h-1.5 min-w-0 p-0 flex items-center transition-all duration-200 ${isActive ? "w-5" : "w-1.5"
+                                            }`}
+                                    >
+                                        <span
+                                            className={`block h-1.5 w-full rounded-full bg-foreground ${isActive ? "opacity-100" : "opacity-30"
+                                                }`}
+                                        />
+                                    </Button>
+                                );
+                            })}
+                        </div>
+
+                        <ButtonGroup.Separator />
+
+                        {/* RIGHT ARROW */}
+                        <Button
+                            isIconOnly
+                            variant="outline"
+                            onClick={() => carouselRef.current?.next()}
+                            isDisabled={currentSlide >= itemsC.length - slideCount}
+                        >
+                            <ChevronRight className="size-5" />
+                        </Button>
+
+                    </ButtonGroup>
+
+                    {/* </CardContent>
+                    </Card> */}
+
+                </div>
+            </div>
+
+
             {/* Mobile */}
-            <div className="block md:hidden px-4 py-1">
-                <Carousel dotPlacement="top">
+            <div className="px-4 py-1">
+                <Carousel
+                    // prevArrow={<TopPrevArrow />}
+                    // nextArrow={<TopNextArrow />}
+                    // arrows={true} slidesToShow={slideCount} slidesToScroll={1} initialSlide={startIndex} infinite={false}
+                    ref={carouselRef}
+                    dots={false}
+                    arrows={false}
+                    slidesToShow={slideCount}
+                    slidesToScroll={1}
+                    initialSlide={startIndex}
+                    infinite={false}
+                    afterChange={(current) => setCurrentSlide(current)}
+                >
                     {itemsC.map((item) => (
                         // <Surface key={item} className="flex min-w-full flex-col gap-3 rounded-3xl p-6" variant="default">
                         //     <h3 className="text-base font-semibold text-foreground">Surface Content</h3>
@@ -221,91 +360,80 @@ Rest 1 min between rounds`,
                         //         This is a default surface variant. It uses bg-surface styling.
                         //     </p>
                         // </Surface>
-
-                        <Surface className="flex min-w-full flex-col gap-5 rounded-3xl p-3" variant="default">
-                            {/* Header */}
-                            <div className="flex items-start justify-between gap-3">
-                                <div className="flex flex-col gap-1">
-                                    <h3 className="text-base font-semibold text-foreground">{workout.name}</h3>
-                                    <p className="text-xs text-muted">
-                                        {workout.date} . {item}
-                                        {/* · {workout.durationMin} min */}
-                                    </p>
-                                </div>
-                                <Button
-                                    variant="secondary"
-                                    size="sm"
-                                    aria-label={`Edit ${workout.name}`}
-                                    onClick={() => onEdit(workout.id)}
-                                    isIconOnly
-                                >
-                                    <Pencil />
-                                </Button>
-                            </div>
-
-                            {/* Body part tags */}
-                            <div className="flex flex-wrap gap-2 py-2">
-                                {workout.bodyParts.map((part) => (
-                                    <span
-                                        key={part}
-                                        className="rounded-full bg-foreground/10 px-3 py-1 text-xs font-medium text-foreground"
-                                    >
-                                        {part}
-                                    </span>
-                                ))}
-                            </div>
-
-                            {/* Sections */}
-                            <div className="flex flex-col gap-4">
-                                {workout.sections.map((section) => (
-                                    <div
-                                        key={section.name}
-                                        className="flex flex-col gap-3 rounded-2xl border border-foreground/10 p-2.5"
-                                    >
-
-                                        <Chip className="font-semibold uppercase tracking-wide text-muted">
-                                            <CircleFill width={6} />
-                                            <ChipLabel> {section.name}</ChipLabel>
-                                        </Chip>
-
-
-                                        {/* Markdown content */}
-                                        <div className="text-sm text-foreground">
-                                            <MarkdownComponent markdown={section.content} />
+                        <div key={item}>
+                            <div className="md:px-2" >
+                                <Surface className="flex min-w-full flex-col rounded-3xl p-3" variant="default">
+                                    {/* Header */}
+                                    <div className="flex items-start justify-between gap-3">
+                                        <div className="flex flex-col gap-1">
+                                            <h3 className="text-base font-semibold text-foreground"> {workout.date}</h3>
+                                            <p className="text-xs text-muted">
+                                                {workout.date}. {item}
+                                                {/* · {workout.durationMin} min */}
+                                            </p>
                                         </div>
-
-                                        {/* Notes */}
-                                        {section.notes && section.notes.length > 0 && (
-                                            <div className="rounded-xl bg-foreground/5 px-2 py-2">
-                                                <p className="mb-1 text-xs font-semibold text-foreground">Notes</p>
-                                                <ul className="list-disc space-y-1 pl-4 text-xs text-muted">
-                                                    {section.notes.map((note, i) => (
-                                                        <li key={i}>{note}</li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        )}
+                                        <Button
+                                            variant="secondary"
+                                            size="sm"
+                                            aria-label={`Edit ${workout.name}`}
+                                            onClick={() => onEdit(workout.id)}
+                                            isIconOnly
+                                        >
+                                            <Pencil />
+                                        </Button>
                                     </div>
-                                ))}
+
+                                    {/* Body part tags */}
+                                    <div className="flex flex-wrap gap-2 py-2">
+                                        {workout.bodyParts.map((part) => (
+                                            <span
+                                                key={part}
+                                                className="rounded-full bg-foreground/10 px-3 py-1 text-xs font-medium text-foreground"
+                                            >
+                                                {part}
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    {/* Sections */}
+                                    <div className="flex flex-col gap-4">
+                                        {workout.sections.map((section) => (
+                                            <div
+                                                key={section.name}
+                                                className="flex flex-col gap-3 rounded-2xl border border-foreground/10 p-2.5"
+                                            >
+
+                                                <Chip className="font-semibold uppercase tracking-wide text-muted">
+                                                    <CircleFill width={6} />
+                                                    <ChipLabel> {section.name}</ChipLabel>
+                                                </Chip>
+
+
+                                                {/* Markdown content */}
+                                                <div className="text-sm text-foreground">
+                                                    <MarkdownComponent markdown={section.content} />
+                                                </div>
+
+                                                {/* Notes */}
+                                                {section.notes && section.notes.length > 0 && (
+                                                    <div className="rounded-xl bg-foreground/5 px-2 py-2">
+                                                        <p className="mb-1 text-xs font-semibold text-foreground">Notes</p>
+                                                        <ul className="list-disc space-y-1 pl-4 text-xs text-muted">
+                                                            {section.notes.map((note, i) => (
+                                                                <li key={i}>{note}</li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </Surface>
                             </div>
-                        </Surface>
+                        </div>
                     ))}
                 </Carousel>
             </div>
-
-
-            {/* Desktop */}
-            <div className="hidden md:flex flex-row gap-4">
-                {itemsC.map((item) => (
-                    <div key={item} className="flex-1">
-                        <h3 style={contentStyle}>{item}</h3>
-                    </div>
-                ))}
-            </div>
-
-
-
-
 
             <AlertDialog
                 isOpen={dialog !== null}

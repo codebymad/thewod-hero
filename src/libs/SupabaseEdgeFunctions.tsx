@@ -62,6 +62,24 @@ export async function getDailyWodDB_ALL() {
   return res;
 }
 
+export async function getAllPrograms() {
+  const res = await callEdgeFunction("get-p", {});
+
+  if (!res) return null;
+  return res;
+}
+
+export async function getProgram(id: string, week: number) {
+  const res = await callEdgeFunctionNEW("programs", {
+    headers: {
+      "id": id,
+      "week": week.toString()
+    }
+  });
+  if (!res) return null;
+  return res;
+}
+
 
 export async function setUpdatedWOD(id: string, key: string, body: any = {}) {
   const res = await callEdgeFunctionNEW("update-wod", {
