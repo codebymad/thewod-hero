@@ -66,6 +66,7 @@ export function ProgramCard(
         workout: {
             wod_id: d.wid,
             wod_name: d.ird ? `Day ${d.dn} - Rest` : `Day ${d.dn}`,
+            dn: d.dn,
             tags: [],
             content: [...d.s]
                 .sort((a: any, b: any) => a.sp - b.sp)
@@ -137,7 +138,9 @@ export function ProgramCard(
                                 <div className="grid grid-cols-7 gap-1 mt-2">
                                     {[1, 2, 3, 4, 5, 6, 7].map((d) => {
                                         // Day is disabled when it has no sections (s is empty or missing)
+                                        // const isEmpty = (days[d - 1]?.workout.content.length ?? 0) === 0;
                                         const isEmpty = (days[d - 1]?.workout.content.length ?? 0) === 0;
+                                        
 
                                         return (
                                             <button

@@ -1,8 +1,8 @@
-import { Accordion, Card, Chip, Label, ProgressBar, Typography } from "@heroui/react";
+import { Card, Chip, Label, ProgressBar, Tabs, Typography } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { getAllPrograms } from "../libs/SupabaseEdgeFunctions";
-import { SquareListUl, SparklesFill } from '@gravity-ui/icons';
-import { IconListDetails } from '@tabler/icons-react';
+import { SparklesFill } from '@gravity-ui/icons';
+import { IconCalendar, IconListDetails } from '@tabler/icons-react';
 import { ProgramCard } from "../compos/ProgramCard";
 
 
@@ -18,24 +18,81 @@ const colors = [
 ];
 
 
-function AllPrograms() {
+function ProgramsPage() {
     const [programsData, setProgramsData] = useState<any[]>([]);
-    const [selectedPid, setSelectedPid] = useState<string | null>(null);
+    const [isProgramLoading, setIsProgramLoading] = useState(true);
 
     useEffect(() => {
         const loadWorkouts = async () => {
-            const data = await getAllPrograms();
-            setProgramsData(data);
+            try {
+                const data = await getAllPrograms();
+                setProgramsData(data);
+            } finally {
+                setIsProgramLoading(false);
+            }
         };
         loadWorkouts();
     }, []);
+
+    return (
+
+        <Tabs className="w-full pl-4 pr-4 items-center justify-center">
+            <Tabs.ListContainer className="w-full md:w-fit md:max-w-full">
+                <Tabs.List aria-label="WOD Tabs">
+                    <Tabs.Tab id="daily" className="whitespace-nowrap md:min-w-[240px]">
+                        <Typography type="body" className="flex flex-row  items-center justify-center gap-1">
+                            <IconCalendar stroke={2} className="text-orange-500" />
+                            <span>Daily WODs</span>
+                        </Typography>
+                        <Tabs.Indicator />
+                    </Tabs.Tab>
+
+                    <Tabs.Tab id="programs" className="whitespace-nowrap md:min-w-[240px]">
+                        <Typography type="body" className="flex flex-row items-center justify-center gap-1">
+                            <IconListDetails stroke={2} className="text-orange-500" />
+                            <span>Programs</span>
+                        </Typography>
+                        <Tabs.Indicator />
+                    </Tabs.Tab>
+                </Tabs.List>
+            </Tabs.ListContainer>
+
+            <Tabs.Panel
+                className="w-full"
+                id="daily"
+            >
+                <p>Coming Soon. Refer Home Page for now</p>
+            </Tabs.Panel>
+
+            <Tabs.Panel
+                className="w-full"
+                id="programs"
+            >
+                {
+                    isProgramLoading ?
+                        <Indeterminate /> :
+                        <AllPrograms programsData={programsData} />
+                }
+
+            </Tabs.Panel>
+        </Tabs>
+
+
+    );
+}
+
+
+function AllPrograms({ programsData }: { programsData: any[] }) {
+
+    const [selectedPid, setSelectedPid] = useState<string | null>(null);
+
 
     const selectedProgram = programsData.find((p) => p.pid === selectedPid);
 
     return (
         <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {programsData.map((program) => {
+                {programsData.map((program: any) => {
                     const color = colors[
                         [...program.pid].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % colors.length
                     ];
@@ -79,78 +136,18 @@ function AllPrograms() {
                 })}
             </div>
 
-            {/* One modal for all cards */}
             <ProgramCard
                 program={selectedProgram}
                 isOpen={selectedPid !== null}
-                onClose={() => setSelectedPid(null)}
-            />
+                onClose={() => setSelectedPid(null)} />
+
+
         </>
     );
 }
 
 
-function ProgramsPage() {
-    return (
-        <div className="w-full pl-4 pr-4">
-            <h1 className="mb-4 flex items-center gap-2 text-3xl font-bold">
-                <IconListDetails stroke={2} className="text-orange-500" /> Programs
-            </h1>
-            <Accordion
-                className="w-full"
-                // allowsMultipleExpanded={true}
-                defaultExpandedKeys={["2"]}
-                variant="surface"
-            >
-                {/* <Accordion.Item id="1">
-                    <Accordion.Heading>
-                        <Accordion.Trigger>
-                            <HourglassStart className="mr-2" />
-                            <Chip color="success" size="lg">In-Progress</Chip>
-                            <Accordion.Indicator />
-                        </Accordion.Trigger>
-                    </Accordion.Heading>
-                    <Accordion.Panel>
-                        <Accordion.Body>
-                            <AllPrograms />
-                        </Accordion.Body>
-                    </Accordion.Panel>
-                </Accordion.Item> */}
 
-                <Accordion.Item id="2">
-                    <Accordion.Heading>
-                        <Accordion.Trigger>
-                            <SquareListUl className="mr-2" />
-                            <Chip color="success" size="lg">All</Chip>
-                            <Accordion.Indicator />
-                        </Accordion.Trigger>
-                    </Accordion.Heading>
-                    <Accordion.Panel>
-                        <Accordion.Body>
-                            <AllPrograms />
-                        </Accordion.Body>
-                    </Accordion.Panel>
-                </Accordion.Item>
-
-                {/* <Accordion.Item id="3">
-                    <Accordion.Heading>
-                        <Accordion.Trigger>
-                            <SealCheck className="mr-2" />
-                            <Chip color="success" size="lg">Completed</Chip>
-                            <Accordion.Indicator />
-                        </Accordion.Trigger>
-                    </Accordion.Heading>
-                    <Accordion.Panel>
-                        <Accordion.Body>
-                            <AllPrograms />
-                        </Accordion.Body>
-                    </Accordion.Panel>
-                </Accordion.Item> */}
-            </Accordion>
-
-        </div>
-    );
-}
 
 export function Indeterminate() {
     return (
