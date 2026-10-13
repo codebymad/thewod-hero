@@ -4,6 +4,9 @@ import { getAllPrograms } from "../libs/SupabaseEdgeFunctions";
 import { SparklesFill } from '@gravity-ui/icons';
 import { IconCalendar, IconListDetails } from '@tabler/icons-react';
 import { ProgramCard } from "../compos/ProgramCard";
+import WodWellDisplay from "../compos/WodWellDisplay";
+import MainSiteDisplay from "../compos/MainSiteDisplay";
+import PushJerkDisplay from "../compos/PushJerkDisplay";
 
 
 const colors = [
@@ -34,6 +37,9 @@ function ProgramsPage() {
         loadWorkouts();
     }, []);
 
+
+
+
     return (
 
         <Tabs className="w-full pl-4 pr-4 items-center justify-center">
@@ -61,7 +67,40 @@ function ProgramsPage() {
                 className="w-full"
                 id="daily"
             >
-                <p>Coming Soon. Refer Home Page for now</p>
+                <Tabs>
+                    <Tabs.ListContainer>
+                        <Tabs.List aria-label="Overflow options">
+
+                            <Tabs.Tab id={'randomww'}>
+                                Daily Random
+                                <Tabs.Indicator />
+                            </Tabs.Tab>
+
+                            <Tabs.Tab id={'mainsite'}>
+                                Main Site
+                                <Tabs.Indicator />
+                            </Tabs.Tab>
+
+                            <Tabs.Tab id={'pushjerk'}>
+                                Push Jerk
+                                <Tabs.Indicator />
+                            </Tabs.Tab>
+
+                        </Tabs.List>
+                    </Tabs.ListContainer>
+
+                    <Tabs.Panel className="pt-4" id={'randomww'}>
+                        <WodWellDisplay />
+                    </Tabs.Panel>
+
+                    <Tabs.Panel className="pt-4" id={'mainsite'}>
+                        <MainSiteDisplay />
+                    </Tabs.Panel>
+
+                    <Tabs.Panel className="pt-4" id={'pushjerk'}>
+                        <PushJerkDisplay />
+                    </Tabs.Panel>
+                </Tabs>
             </Tabs.Panel>
 
             <Tabs.Panel

@@ -17,9 +17,18 @@ function MarkdownComponent({ markdown }: MarkdownComponentProps) {
                 p: ({ node, ...props }) => <p className="mb-2 leading-relaxed" {...props} />,
                 strong: ({ node, ...props }) => <strong className="font-bold" {...props} />,
                 em: ({ node, ...props }) => <em className="italic" {...props} />,
-                ul: ({ node, ...props }) => <ul className="list-disc list-inside ml-4 space-y-1 mb-2" {...props} />,
-                ol: ({ node, ...props }) => <ol className="list-decimal list-inside ml-4 space-y-1 mb-2" {...props} />,
-                li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                // ul: ({ node, ...props }) => <ul className="list-disc list-inside ml-4 space-y-1 mb-2" {...props} />,
+                // ol: ({ node, ...props }) => <ol className="list-decimal list-inside ml-4 space-y-1 mb-2" {...props} />,
+                // li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                ul: ({ node, ...props }) => (
+                    <ul className="list-disc pl-6 mb-2 space-y-1" {...props} />
+                ),
+                ol: ({ node, ...props }) => (
+                    <ul className="list-decimal pl-6 mb-2 space-y-1" {...props} />
+                ),
+                li: ({ node, ...props }) => (
+                    <li className="leading-relaxed" {...props} />
+                ),
                 blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-gray-300 pl-4 italic my-2" {...props} />,
                 code: ({ node, ...props }) => <code className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono" {...props} />,
                 pre: ({ node, ...props }) => <pre className="bg-gray-900 text-gray-100 p-4 rounded mb-2 overflow-x-auto" {...props} />,

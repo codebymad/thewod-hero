@@ -55,6 +55,27 @@ export async function getDailyWodDB_HOME() {
   return res;
 }
 
+export async function getDailyWW(date: string) {
+  const res = await callEdgeFunction("ww", { d: date });
+
+  if (!res) return null;
+  return res;
+}
+
+export async function getDailyMS(r: string) {
+  const res = await callEdgeFunction("ms", { r: r });
+
+  if (!res) return null;
+  return res;
+}
+
+export async function getDailyPJ(r: string) {
+  const res = await callEdgeFunction("pj", { r: r });
+
+  if (!res) return null;
+  return res;
+}
+
 export async function getDailyWodDB_ALL() {
   const res = await callEdgeFunction("addwod-agent", { all: "" });
 
