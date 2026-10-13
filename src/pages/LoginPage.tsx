@@ -14,7 +14,7 @@ function LoginPage({
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => { if (isAuthenticated) { navigate('/home', { replace: true }); } }, [isAuthenticated, navigate]);
+    useEffect(() => { if (isAuthenticated) { navigate('/programs', { replace: true }); } }, [isAuthenticated, navigate]);
 
     const handleLogin = async () => {
         setLoading(true);
@@ -22,7 +22,7 @@ function LoginPage({
         // Save temporary user 
         localStorage.setItem('user', JSON.stringify({ id: 'temp', name: 'Temporary User', }));
         setIsAuthenticated(true);
-        navigate('/home');
+        navigate('/programs');
     };
 
     return (

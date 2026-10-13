@@ -68,21 +68,31 @@ function ProgramsPage() {
                 id="daily"
             >
                 <Tabs>
-                    <Tabs.ListContainer>
-                        <Tabs.List aria-label="Overflow options">
+                    <Tabs.ListContainer className="w-full">
+                        <Tabs.List>
 
-                            <Tabs.Tab id={'randomww'}>
+                            <Tabs.Tab id={'randomww'} className="whitespace-nowrap">
                                 Daily Random
                                 <Tabs.Indicator />
                             </Tabs.Tab>
 
-                            <Tabs.Tab id={'mainsite'}>
+                            <Tabs.Tab id={'mainsite'} className="whitespace-nowrap">
                                 Main Site
                                 <Tabs.Indicator />
                             </Tabs.Tab>
 
-                            <Tabs.Tab id={'pushjerk'}>
+                            <Tabs.Tab id={'pushjerk'} className="whitespace-nowrap">
                                 Push Jerk
+                                <Tabs.Indicator />
+                            </Tabs.Tab>
+
+                            <Tabs.Tab id={'gym1'} className="whitespace-nowrap">
+                                Gym 1
+                                <Tabs.Indicator />
+                            </Tabs.Tab>
+
+                            <Tabs.Tab id={'gym2'} className="whitespace-nowrap">
+                                Gym 2
                                 <Tabs.Indicator />
                             </Tabs.Tab>
 
@@ -99,6 +109,14 @@ function ProgramsPage() {
 
                     <Tabs.Panel className="pt-4" id={'pushjerk'}>
                         <PushJerkDisplay />
+                    </Tabs.Panel>
+
+                    <Tabs.Panel className="pt-4" id={'gym1'}>
+                        <p>Gym # 1 Coming Soon</p>
+                    </Tabs.Panel>
+
+                    <Tabs.Panel className="pt-4" id={'gym2'}>
+                        <p>Gym # 2 Coming Soon</p>
                     </Tabs.Panel>
                 </Tabs>
             </Tabs.Panel>

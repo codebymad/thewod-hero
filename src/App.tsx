@@ -39,7 +39,7 @@ function App({ darkMode, toggleTheme }: AppProps) {
               </Button>
             </div>
 
-            <Typography type="h1" className="text-center text-xl font-bold cursor-pointer"  onClick={() => navigate("/home")}>the<strong>WOD</strong></Typography>
+            <Typography type="h1" className="text-center text-xl font-bold cursor-pointer"  onClick={() => navigate("/programs")}>the<strong>WOD</strong></Typography>
 
             <div className="flex justify-end gap-2">
               <Button variant="ghost" onPress={toggleTheme} isIconOnly>
