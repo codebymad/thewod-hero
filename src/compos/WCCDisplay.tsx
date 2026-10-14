@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getDailyWCC } from "../libs/SupabaseEdgeFunctions";
 import { Accordion, Button, ButtonGroup, Card, Description, Separator, Spinner } from "@heroui/react";
 import { IconAppWindow, IconArrowBackUp, IconArrowsShuffle2, IconNote } from "@tabler/icons-react";
@@ -78,7 +78,6 @@ function WCCDisplay() {
                                     <Accordion.Item key={programIndex}>
                                         <Accordion.Heading>
                                             <Accordion.Trigger>
-
                                                 <div className="flex items-center gap-2 text-orange-500">
                                                     <IconAppWindow size={18} />
                                                     <span className="text-lg font-semibold">{program.program_name}</span>
@@ -90,65 +89,53 @@ function WCCDisplay() {
                                         </Accordion.Heading>
                                         <Accordion.Panel>
                                             <Accordion.Body>
-                                                <Card key={programIndex} variant="default">
-                                                    <Card.Content className="p-6 md:p-8">
+                                                {program.sections?.map((section: any, index: number) => (
 
+                                                    <Card key={programIndex} variant="default">
+                                                        <Card.Content>
+                                                            {/* <div className="mt-4"> */}
 
-                                                        <div className="mt-4">
-                                                            {program.sections?.map((section: any, index: number) => (
-
-                                                                <>
-                                                                    <div className="flex flex-col justify-center items-center" key={index}>
-                                                                        <div className="flex items-center gap-2 text-orange-500">
-                                                                            <IconBarbell size={18} />
-                                                                            <span className="text-lg font-semibold whitespace-pre-line">
-                                                                                {section.section_name.split('|')[0]}
-                                                                            </span>
-                                                                        </div>
-                                                                        <Description>{section.section_name.split('|').slice(1).join('|')} </Description>
-
-
-
-                                                                        <MarkdownComponent markdown={(section.section_content).replace(/\n/g, '  \n\n ')} />
-
-                                                                        <Accordion variant="surface" className="w-full">
-                                                                            {section.section_notes?.map((note: any, noteIndex: number) => (
-                                                                                <Accordion.Item key={noteIndex}>
-                                                                                    <Accordion.Heading>
-                                                                                        <Accordion.Trigger>
-                                                                                            <div className="flex items-center gap-2">
-                                                                                                <IconNote size={18} />
-                                                                                                <span className="text-lg font-semibold">Note</span>
-                                                                                            </div>
-                                                                                            <Accordion.Indicator>
-                                                                                                <ChevronDown />
-                                                                                            </Accordion.Indicator>
-                                                                                        </Accordion.Trigger>
-                                                                                    </Accordion.Heading>
-                                                                                    <Accordion.Panel>
-                                                                                        <Accordion.Body><Description key={noteIndex} className="whitespace-pre-line">{note}</Description></Accordion.Body>
-                                                                                    </Accordion.Panel>
-                                                                                </Accordion.Item>
-                                                                            ))}
-                                                                        </Accordion>
-                                                                        <Separator className="my-4" />
-                                                                    </div>
-
-   
-
-                                                                </>
+                                                            <div className="flex flex-col justify-center items-center" key={index}>
+                                                                <div className="flex items-center gap-2 text-orange-500">
+                                                                    <IconBarbell size={18} />
+                                                                    <span className="text-md font-semibold whitespace-pre-line">
+                                                                        {section.section_name.split('|')[0]}
+                                                                    </span>
+                                                                </div>
+                                                                <Description>{section.section_name.split('|').slice(1).join('|')}</Description>
 
 
 
+                                                                <MarkdownComponent markdown={(section.section_content).replace(/\n/g, '  \n\n ')} />
+
+                                                                <Accordion variant="surface" className="w-full">
+                                                                    {section.section_notes?.map((note: any, noteIndex: number) => (
+                                                                        <Accordion.Item key={noteIndex}>
+                                                                            <Accordion.Heading>
+                                                                                <Accordion.Trigger>
+                                                                                    <div className="flex items-center gap-2">
+                                                                                        <IconNote size={18} />
+                                                                                        <span className="text-lg font-semibold">Note</span>
+                                                                                    </div>
+                                                                                    <Accordion.Indicator>
+                                                                                        <ChevronDown />
+                                                                                    </Accordion.Indicator>
+                                                                                </Accordion.Trigger>
+                                                                            </Accordion.Heading>
+                                                                            <Accordion.Panel>
+                                                                                <Accordion.Body><Description key={noteIndex} className="whitespace-pre-line">{note}</Description></Accordion.Body>
+                                                                            </Accordion.Panel>
+                                                                        </Accordion.Item>
+                                                                    ))}
+                                                                </Accordion>
+                                                                <Separator className="my-4" />
+                                                            </div>
 
 
-
-
-                                                            ))}
-                                                        </div>
-
-                                                    </Card.Content>
-                                                </Card>
+                                                            {/* </div> */}
+                                                        </Card.Content>
+                                                    </Card>
+                                                ))}
                                             </Accordion.Body>
                                         </Accordion.Panel>
                                     </Accordion.Item>
