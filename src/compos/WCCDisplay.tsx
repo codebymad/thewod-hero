@@ -68,34 +68,34 @@ function WCCDisplay() {
                 )}
 
                 {!randomLoading && randomData && (
-                    <div>
+                    <div className="flex flex-col gap-4">
                         {randomData.map((program: any, programIndex: number) => (
-                            <Card variant="default">
+                            <Card key={programIndex} variant="default">
                                 <Card.Content className="p-6 md:p-8">
+                                    <details open={programIndex === 0} className="group">
+                                        <summary className="flex items-center justify-between cursor-pointer list-none">
+                                            <h3 className="text-xl font-bold">{program.program_name}</h3>
+                                            <span className="text-orange-500 transition-transform group-open:rotate-180">▼</span>
+                                        </summary>
 
-                                    <div key={programIndex} className="mb-8">
-                                        <h3 className="text-center text-xl font-bold mb-4 text-orange-500">{program.program_name}</h3>
+                                        <div className="mt-4">
+                                            {program.sections?.map((section: any, index: number) => (
+                                                <Fragment key={index}>
+                                                    <div className="flex flex-col justify-center items-center">
+                                                        <h4 className="text-orange-500"><strong>{section.section_name}</strong></h4>
 
-                                        {program.sections?.map((section: any, index: number) => (
-                                            <Fragment key={index}>
-                                                <div className="flex flex-col justify-center items-center">
-                                                    <h4 className="text-orange-500"><strong>{section.section_name}</strong></h4>
+                                                        <MarkdownComponent markdown={(section.section_content).replace(/\n/g, '  \n\n ')} />
 
-                                                    <MarkdownComponent markdown={(section.section_content).replace(/\n/g, ' \n\n ')} />
+                                                        {section.section_notes?.map((note: any, noteIndex: number) => (
+                                                            <Description key={noteIndex} className="whitespace-pre-line">{note}</Description>
+                                                        ))}
+                                                    </div>
 
-                                                    {section.section_notes?.map((note: any, noteIndex: number) => (
-                                                        <Description key={noteIndex}>
-
-                                                            <MarkdownComponent markdown={(note).replace(/\n/g, '  \n\n ')} />
-                                                        </Description>
-                                                    ))}
-                                                </div>
-
-                                                <Separator className="my-4" />
-                                            </Fragment>
-                                        ))}
-                                    </div>
-
+                                                    <Separator className="my-4" />
+                                                </Fragment>
+                                            ))}
+                                        </div>
+                                    </details>
                                 </Card.Content>
                             </Card>
                         ))}
