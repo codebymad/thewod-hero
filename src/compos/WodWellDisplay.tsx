@@ -12,15 +12,14 @@ function WodWellDisplay() {
         setRandomLoading(true);
 
         try {
-            const dateValue =
-                date === -99
-                    ? Number(
-                        new Date()
-                            .toISOString()
-                            .slice(0, 10)
-                            .replaceAll("-", "")
-                    )
-                    : date;
+            const now = new Date();
+
+const dateValue =
+    date === -99
+        ? now.getFullYear() * 10000 +
+          (now.getMonth() + 1) * 100 +
+          now.getDate()
+        : date;
 
             const data = await getDailyWW(dateValue.toString());
             setRandomData(data);
