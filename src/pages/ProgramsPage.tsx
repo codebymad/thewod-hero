@@ -7,6 +7,7 @@ import { ProgramCard } from "../compos/ProgramCard";
 import WodWellDisplay from "../compos/WodWellDisplay";
 import MainSiteDisplay from "../compos/MainSiteDisplay";
 import PushJerkDisplay from "../compos/PushJerkDisplay";
+import WCCDisplay from "../compos/WCCDisplay";
 
 
 const colors = [
@@ -86,6 +87,11 @@ function ProgramsPage() {
                                 <Tabs.Indicator />
                             </Tabs.Tab>
 
+                             <Tabs.Tab id={'wcc'} className="whitespace-nowrap">
+                                Gym WCC
+                                <Tabs.Indicator />
+                            </Tabs.Tab>
+
                             <Tabs.Tab id={'gym1'} className="whitespace-nowrap">
                                 Gym 1
                                 <Tabs.Indicator />
@@ -109,6 +115,10 @@ function ProgramsPage() {
 
                     <Tabs.Panel className="pt-4" id={'pushjerk'}>
                         <PushJerkDisplay />
+                    </Tabs.Panel>
+
+                    <Tabs.Panel className="pt-4" id={'wcc'}>
+                        <WCCDisplay />
                     </Tabs.Panel>
 
                     <Tabs.Panel className="pt-4" id={'gym1'}>

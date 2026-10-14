@@ -76,6 +76,13 @@ export async function getDailyPJ(r: string) {
   return res;
 }
 
+export async function getDailyWCC(r: string) {
+  const res = await callEdgeFunction("wcc", { r: r });
+
+  if (!res) return null;
+  return res;
+}
+
 export async function getDailyWodDB_ALL() {
   const res = await callEdgeFunction("addwod-agent", { all: "" });
 
