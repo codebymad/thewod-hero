@@ -1,8 +1,10 @@
-import { Fragment, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { getDailyWCC } from "../libs/SupabaseEdgeFunctions";
-import { Button, ButtonGroup, Card, Description, Separator, Spinner } from "@heroui/react";
-import { IconArrowBackUp, IconArrowsShuffle2 } from "@tabler/icons-react";
+import { Accordion, Button, ButtonGroup, Card, Description, Separator, Spinner } from "@heroui/react";
+import { IconAppWindow, IconArrowBackUp, IconArrowsShuffle2, IconNote } from "@tabler/icons-react";
 import MarkdownComponent from "./MarkdownComponent";
+import { ChevronDown } from "@gravity-ui/icons";
+import { IconBarbell } from '@tabler/icons-react';
 
 function WCCDisplay() {
     const [randomData, setRandomData] = useState<any>(null);
@@ -69,40 +71,98 @@ function WCCDisplay() {
 
                 {!randomLoading && randomData && (
                     <div className="flex flex-col gap-4">
-                        {randomData.map((program: any, programIndex: number) => (
-                            <Card key={programIndex} variant="default">
-                                <Card.Content className="p-6 md:p-8">
-                                    <details open={programIndex === 0} className="group">
-                                        <summary className="flex items-center justify-between cursor-pointer list-none">
-                                            <h3 className="text-xl font-bold">{program.program_name}</h3>
-                                            <span className="text-orange-500 transition-transform group-open:rotate-180">▼</span>
-                                        </summary>
 
-                                        <div className="mt-4">
-                                            {program.sections?.map((section: any, index: number) => (
-                                                <Fragment key={index}>
-                                                    <div className="flex flex-col justify-center items-center">
-                                                        <h4 className="text-orange-500"><strong>{section.section_name}</strong></h4>
+                        <Accordion variant="surface" hideSeparator className="w-full" allowsMultipleExpanded={false}>
+                            {randomData.map((program: any, programIndex: number) => (
+                                <>
+                                    <Accordion.Item key={programIndex}>
+                                        <Accordion.Heading>
+                                            <Accordion.Trigger>
 
-                                                        <MarkdownComponent markdown={(section.section_content).replace(/\n/g, '  \n\n ')} />
+                                                <div className="flex items-center gap-2 text-orange-500">
+                                                    <IconAppWindow size={18} />
+                                                    <span className="text-lg font-semibold">{program.program_name}</span>
+                                                </div>
+                                                <Accordion.Indicator>
+                                                    <ChevronDown />
+                                                </Accordion.Indicator>
+                                            </Accordion.Trigger>
+                                        </Accordion.Heading>
+                                        <Accordion.Panel>
+                                            <Accordion.Body>
+                                                <Card key={programIndex} variant="default">
+                                                    <Card.Content className="p-6 md:p-8">
 
-                                                        {section.section_notes?.map((note: any, noteIndex: number) => (
-                                                            <Description key={noteIndex} className="whitespace-pre-line">{note}</Description>
-                                                        ))}
-                                                    </div>
 
-                                                    <Separator className="my-4" />
-                                                </Fragment>
-                                            ))}
-                                        </div>
-                                    </details>
-                                </Card.Content>
-                            </Card>
-                        ))}
+                                                        <div className="mt-4">
+                                                            {program.sections?.map((section: any, index: number) => (
+
+                                                                <>
+                                                                    <div className="flex flex-col justify-center items-center" key={index}>
+                                                                        <div className="flex items-center gap-2 text-orange-500">
+                                                                            <IconBarbell size={18} />
+                                                                            <span className="text-lg font-semibold whitespace-pre-line">
+                                                                                {section.section_name.split('|')[0]}
+                                                                            </span>
+                                                                        </div>
+                                                                        <Description>{section.section_name.split('|').slice(1).join('|')} </Description>
+
+
+
+                                                                        <MarkdownComponent markdown={(section.section_content).replace(/\n/g, '  \n\n ')} />
+
+                                                                        <Accordion variant="surface" className="w-full">
+                                                                            {section.section_notes?.map((note: any, noteIndex: number) => (
+                                                                                <Accordion.Item key={noteIndex}>
+                                                                                    <Accordion.Heading>
+                                                                                        <Accordion.Trigger>
+                                                                                            <div className="flex items-center gap-2">
+                                                                                                <IconNote size={18} />
+                                                                                                <span className="text-lg font-semibold">Note</span>
+                                                                                            </div>
+                                                                                            <Accordion.Indicator>
+                                                                                                <ChevronDown />
+                                                                                            </Accordion.Indicator>
+                                                                                        </Accordion.Trigger>
+                                                                                    </Accordion.Heading>
+                                                                                    <Accordion.Panel>
+                                                                                        <Accordion.Body><Description key={noteIndex} className="whitespace-pre-line">{note}</Description></Accordion.Body>
+                                                                                    </Accordion.Panel>
+                                                                                </Accordion.Item>
+                                                                            ))}
+                                                                        </Accordion>
+                                                                        <Separator className="my-4" />
+                                                                    </div>
+
+   
+
+                                                                </>
+
+
+
+
+
+
+
+                                                            ))}
+                                                        </div>
+
+                                                    </Card.Content>
+                                                </Card>
+                                            </Accordion.Body>
+                                        </Accordion.Panel>
+                                    </Accordion.Item>
+                                </>
+                            ))}
+                        </Accordion >
+
+
+
+
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }
 

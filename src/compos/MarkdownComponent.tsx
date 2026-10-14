@@ -24,7 +24,7 @@ function MarkdownComponent({ markdown }: MarkdownComponentProps) {
                     <ul className="list-disc pl-6 mb-2 space-y-1" {...props} />
                 ),
                 ol: ({ node, ...props }) => (
-                    <ul className="list-decimal pl-6 mb-2 space-y-1" {...props} />
+                    <ol className="list-decimal pl-6 mb-2 space-y-1" {...props} />
                 ),
                 li: ({ node, ...props }) => (
                     <li className="leading-relaxed" {...props} />
@@ -39,7 +39,8 @@ function MarkdownComponent({ markdown }: MarkdownComponentProps) {
                 td: ({ node, ...props }) => <td className="border border-gray-300 px-2 py-1" {...props} />,
             }}
         >
-            {markdown}
+            {/* {markdown} */}
+            {markdown.replace(/^([ \t]*)- (.*) -[ \t]*$/gm, '$1\\- $2 -')}
         </Markdown>
     )
 }
