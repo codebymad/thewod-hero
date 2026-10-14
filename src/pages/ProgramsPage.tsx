@@ -8,6 +8,8 @@ import WodWellDisplay from "../compos/WodWellDisplay";
 import MainSiteDisplay from "../compos/MainSiteDisplay";
 import PushJerkDisplay from "../compos/PushJerkDisplay";
 import WCCDisplay from "../compos/WCCDisplay";
+import CFCMDisplay from "../compos/CFCMDisplay";
+import MEFDisplay from "../compos/MEFDisplay";
 
 
 const colors = [
@@ -92,13 +94,13 @@ function ProgramsPage() {
                                 <Tabs.Indicator />
                             </Tabs.Tab>
 
-                            <Tabs.Tab id={'gym1'} className="whitespace-nowrap">
-                                Gym 1
+                            <Tabs.Tab id={'cfcm'} className="whitespace-nowrap">
+                                Gym CFCM
                                 <Tabs.Indicator />
                             </Tabs.Tab>
 
-                            <Tabs.Tab id={'gym2'} className="whitespace-nowrap">
-                                Gym 2
+                            <Tabs.Tab id={'mef'} className="whitespace-nowrap">
+                                Gym MEF
                                 <Tabs.Indicator />
                             </Tabs.Tab>
 
@@ -121,12 +123,12 @@ function ProgramsPage() {
                         <WCCDisplay />
                     </Tabs.Panel>
 
-                    <Tabs.Panel className="pt-4" id={'gym1'}>
-                        <p>Gym # 1 Coming Soon</p>
+                    <Tabs.Panel className="pt-4" id={'cfcm'}>
+                        <CFCMDisplay />
                     </Tabs.Panel>
 
-                    <Tabs.Panel className="pt-4" id={'gym2'}>
-                        <p>Gym # 2 Coming Soon</p>
+                    <Tabs.Panel className="pt-4" id={'mef'}>
+                        <MEFDisplay />
                     </Tabs.Panel>
                 </Tabs>
             </Tabs.Panel>

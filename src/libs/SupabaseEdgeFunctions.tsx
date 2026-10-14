@@ -83,6 +83,18 @@ export async function getDailyWCC(r: string) {
   return res;
 }
 
+export async function getDailyCFCM(r: string) {
+  const res = await callEdgeFunction("ctcm-loop-new", { date: r });
+  if (!res) return null;
+  return res;
+}
+
+export async function getDailyMEF(r: string) {
+  const res = await callEdgeFunction("mef-wod-loop", { date: r });
+  if (!res) return null;
+  return res;
+}
+
 export async function getDailyWodDB_ALL() {
   const res = await callEdgeFunction("addwod-agent", { all: "" });
 
