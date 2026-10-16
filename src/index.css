@@ -10,6 +10,7 @@
     --as-highlight: rgba(245, 237, 237, 0.463);
   }
 }
+
 /* 
 .slick-slide {
   overflow: visible !important;
@@ -31,6 +32,10 @@ body,
 }
 
 [class*="button--secondary"] {
+  color: #f97316 !important;
+}
+
+[class*="checkbox__content"]{
   color: #f97316 !important;
 }
 

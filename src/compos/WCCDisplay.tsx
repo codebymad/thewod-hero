@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDailyWCC } from "../libs/SupabaseEdgeFunctions";
-import { Accordion, Button, ButtonGroup, Card, Description, Separator, Spinner } from "@heroui/react";
+import { Accordion, Button, ButtonGroup, Card, Description, Separator, Spinner, Tag, TagGroup } from "@heroui/react";
 import { IconAppWindow, IconArrowBackUp, IconArrowsShuffle2, IconNote } from "@tabler/icons-react";
 import MarkdownComponent from "./MarkdownComponent";
 import { ChevronDown } from "@gravity-ui/icons";
@@ -70,7 +70,15 @@ function WCCDisplay() {
                 )}
 
                 {!randomLoading && randomData && (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 items-center justify-center w-full">
+
+                        <TagGroup aria-label="Tags" selectionMode="none">
+                            <TagGroup.List>
+                                <Tag>
+                                    {randomData[0].date}
+                                </Tag>
+                            </TagGroup.List>
+                        </TagGroup>
 
                         <Accordion variant="surface" hideSeparator className="w-full" allowsMultipleExpanded={false}>
                             {randomData.map((program: any, programIndex: number) => (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDailyMS } from "../libs/SupabaseEdgeFunctions";
-import { Button, ButtonGroup, Card, Description, Separator, Spinner } from "@heroui/react";
+import { Button, ButtonGroup, Card, Description, Separator, Spinner, Tag, TagGroup } from "@heroui/react";
 import { IconArrowBackUp, IconArrowsShuffle2 } from "@tabler/icons-react";
 import MarkdownComponent from "./MarkdownComponent";
 
@@ -68,30 +68,40 @@ function MainSiteDisplay() {
                 )}
 
                 {!randomLoading && randomData && (
-                    <Card variant="default">
-                        <Card.Content className="p-6 md:p-8">
-                            {randomData.sections?.map((section: any, index: number) => (
-                                <>
-                                    <div key={index} className="flex flex-col justify-center items-center">
-                                        <h4 className="text-orange-500"><strong>{section.section_name}</strong></h4>
 
-                                        <MarkdownComponent markdown={(section.section_content).replace(/\n/g, '  \n')} />
+                    <>
+                        <TagGroup aria-label="Tags" selectionMode="none" className="items-center justify-center">
+                            <TagGroup.List>
+                                <Tag>
+                                    {randomData.date}
+                                </Tag>
+                            </TagGroup.List>
+                        </TagGroup>
+                        <Card variant="default">
+                            <Card.Content className="p-1 md:p-1">
+                                {randomData.sections?.map((section: any, index: number) => (
+                                    <>
+                                        <div key={index} className="flex flex-col justify-center items-center">
+                                            <h4 className="text-orange-500"><strong>{section.section_name}</strong></h4>
+
+                                            <MarkdownComponent markdown={(section.section_content).replace(/\n/g, '  \n')} />
 
 
 
-                                        {section.section_notes?.map((note: any, noteIndex: number) => (
-                                            <Description key={noteIndex}>{note}</Description>
-                                        ))}
+                                            {section.section_notes?.map((note: any, noteIndex: number) => (
+                                                <Description key={noteIndex}>{note}</Description>
+                                            ))}
 
-                                    </div>
+                                        </div>
 
-                                    <Separator className="my-4" />
+                                        <Separator className="my-4" />
 
-                                </>
-                            ))
-                            }
-                        </Card.Content>
-                    </Card>
+                                    </>
+                                ))
+                                }
+                            </Card.Content>
+                        </Card>
+                    </>
                 )}
             </div>
         </div>

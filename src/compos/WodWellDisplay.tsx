@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { getDailyWW } from "../libs/SupabaseEdgeFunctions";
-import { Button, ButtonGroup, Card, Spinner } from "@heroui/react";
+import { Button, ButtonGroup, Card, Checkbox, Spinner, Tag, TagGroup } from "@heroui/react";
 import { IconArrowBackUp, IconArrowsShuffle2 } from "@tabler/icons-react";
 import MarkdownComponent from "./MarkdownComponent";
+
 
 function WodWellDisplay() {
     const [randomData, setRandomData] = useState<any>(null);
     const [randomLoading, setRandomLoading] = useState(false);
+    const [isSelected, setIsSelected] = useState(false);
 
     const loadWod = async (date: number) => {
         setRandomLoading(true);
@@ -14,14 +16,14 @@ function WodWellDisplay() {
         try {
             const now = new Date();
 
-const dateValue =
-    date === -99
-        ? now.getFullYear() * 10000 +
-          (now.getMonth() + 1) * 100 +
-          now.getDate()
-        : date;
+            const dateValue =
+                date === -99
+                    ? now.getFullYear() * 10000 +
+                    (now.getMonth() + 1) * 100 +
+                    now.getDate()
+                    : date;
 
-            const data = await getDailyWW(dateValue.toString());
+            const data = await getDailyWW(dateValue.toString(), isSelected);
             setRandomData(data);
         } catch {
             setRandomData(null);
@@ -32,7 +34,7 @@ const dateValue =
 
     useEffect(() => {
         loadWod(-99);
-    }, []);
+    }, [isSelected]);
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-start">
@@ -62,6 +64,20 @@ const dateValue =
                             <IconArrowBackUp size={18} />
                             Today
                         </Button>
+
+                        <Button
+                            variant="secondary"
+                            onPress={() => loadWod(-99)}
+                        >
+                            <Checkbox name="basic-terms" isSelected={isSelected} onChange={setIsSelected} >
+                                <Checkbox.Content>
+                                    <Checkbox.Control >
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    Bodyweight
+                                </Checkbox.Content>
+                            </Checkbox>
+                        </Button>
                     </ButtonGroup>
                 </div>
 
@@ -83,8 +99,17 @@ const dateValue =
 
                 {!randomLoading && randomData && (
                     <Card variant="default">
-                        <Card.Content className="p-6 md:p-8 flex flex-col items-center justify-center text-center">
-                            <h4 className="text-orange-500">
+                        <Card.Content className="p-2 md:p-2 flex flex-col items-center justify-center text-center">
+                            <TagGroup aria-label="Tags" selectionMode="none">
+                                <TagGroup.List>
+                                    {(randomData?.category ?? []).map((category: string) => (
+                                        <Tag key={category} id={category}>
+                                            {category}
+                                        </Tag>
+                                    ))}
+                                </TagGroup.List>
+                            </TagGroup>
+                            <h4 className="text-orange-500 pt-2">
                                 <strong>{randomData?.title || "Workout of the Day"}</strong>
                             </h4>
 

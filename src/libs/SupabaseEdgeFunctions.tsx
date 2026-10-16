@@ -55,8 +55,8 @@ export async function getDailyWodDB_HOME() {
   return res;
 }
 
-export async function getDailyWW(date: string) {
-  const res = await callEdgeFunction("ww", { d: date });
+export async function getDailyWW(date: string, isBodyweight: boolean) {
+  const res = await callEdgeFunction("ww", { d: date, b: isBodyweight.toString() });
 
   if (!res) return null;
   return res;
